@@ -19,4 +19,9 @@ class Example extends Model
         return LogOptions::defaults()->logOnly($this->logs ?? [])
             ->logUnguarded()->logOnlyDirty()->dontSubmitEmptyLogs()->logExcept(['updated_at']);
     }
+
+    public function related()
+    {
+        return $this->belongsToMany(Related::class)->withPivot(['note']);
+    }
 }

@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ExampleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ExampleResource\RelationManagers;
-use Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction;
+use App\Filament\Resources\ExampleResource\RelationManagers\RelatedRelationManager;
 
 class ExampleResource extends Resource
 {
@@ -87,10 +87,20 @@ class ExampleResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+            RelatedRelationManager::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageExamples::route('/'),
+            'index' => Pages\ListExamples::route('/'),
+            'create' => Pages\CreateExample::route('/create'),
+            'edit' => Pages\EditExample::route('/{record}/edit'),
         ];
     }
 }
